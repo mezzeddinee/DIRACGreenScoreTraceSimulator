@@ -1,0 +1,35 @@
+[CIM]
+# Supply credentials through a local cim.conf or environment-specific secret
+# management. Never commit live credentials.
+EMAIL =
+PASSWORD =
+API_BASE = https://greendigit-cim.sztaki.hu/gd-cim-api/v1
+METRICS_URL = https://greendigit-cim.sztaki.hu/gd-cim-api/v1/submit
+
+[KPI]
+API_BASE = https://greendigit-cim.sztaki.hu/gd-kpi-api/v1
+
+[WATTNET]
+# These may instead be supplied through WATTNET_EMAIL/WATTNET_PASSWORD or
+# WATTNET_TOKEN environment variables.
+EMAIL =
+PASSWORD =
+TOKEN_URL = https://api.wattnet.eu/token-request/get_token
+API_BASE = https://api.wattnet.eu/v1
+IMPACT_PATH = /impacts
+FOOTPRINT_PATH = /footprints
+
+[Defaults]
+PUE = 3
+CI = 1000
+ENERGY_WH = 8500
+
+[Runtime]
+TOKEN_MAX_AGE_H = 24
+CACHE_TTL = 3600
+TOKEN_TIMEOUT_S = 20
+PUE_TIMEOUT_S = 20
+CI_TIMEOUT_S = 60
+HYDRIC_TIMEOUT_S = 30
+WATTNET_CI_TIMEOUT_S = 30
+SUBMIT_TIMEOUT_S = 30
