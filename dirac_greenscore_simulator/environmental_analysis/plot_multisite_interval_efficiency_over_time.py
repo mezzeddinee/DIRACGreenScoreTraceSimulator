@@ -68,10 +68,25 @@ def ratio(numerator: np.ndarray, denominator: np.ndarray) -> np.ndarray:
 def centered_window_ratio(
     numerator: np.ndarray, denominator: np.ndarray, window: int = 3
 ) -> np.ndarray:
+    if numerator.ndim != 1 or denominator.ndim != 1:
+        raise ValueError("Centered-window inputs must be one-dimensional")
+    if numerator.shape != denominator.shape:
+        raise ValueError("Centered-window inputs must have matching shapes")
+    if window < 1:
+        raise ValueError("Centered-window size must be positive")
+    if numerator.size == 0:
+        return np.asarray([], dtype=float)
+
     kernel = np.ones(window, dtype=float)
+    start = (window - 1) // 2
+
+    def centered_sum(values: np.ndarray) -> np.ndarray:
+        full = np.convolve(values, kernel, mode="full")
+        return full[start : start + values.size]
+
     return ratio(
-        np.convolve(numerator, kernel, mode="same"),
-        np.convolve(denominator, kernel, mode="same"),
+        centered_sum(numerator),
+        centered_sum(denominator),
     )
 
 
