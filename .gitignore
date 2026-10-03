@@ -16,11 +16,11 @@ htmlcov/
 .env
 .env.*
 !.env.example
-SIMPLIFIEDDIRACXNEW/cim.conf
+dirac_greenscore_simulator/cim.conf
 
 # Generated simulator outputs
-SIMPLIFIEDDIRACXNEW/plots/
-SIMPLIFIEDDIRACXNEW/hydric_impact/timeseries/
+dirac_greenscore_simulator/plots/
+dirac_greenscore_simulator/hydric_impact/timeseries/
 *.log
 
 # Packaging and temporary files

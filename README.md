@@ -1,4 +1,4 @@
-# Simplified DIRAC Trace-Replay Simulator
+# DIRAC GreenScore Trace Simulator
 
 This repository contains a trace-driven simulator used to compare randomized
 and GreenScore-based scheduling across DIRAC sites. It includes four seven-day
@@ -13,21 +13,21 @@ sites are ranked by the static `greenhydric` values in the selected site CSV.
 
 ## Repository Layout
 
-- `SIMPLIFIEDDIRACXNEW/`: simulator source, tests, configuration, and plotting
+- `dirac_greenscore_simulator/`: simulator source, tests, configuration, and plotting
   utilities.
-- `SIMPLIFIEDDIRACXNEW/sites_original_four_with_pue.csv`: controlled four-site
+- `dirac_greenscore_simulator/sites_original_four_with_pue.csv`: controlled four-site
   configuration containing IN2P3-IRES, SARA-MATRIX, FZK-LCG2, and RAL-LCG2.
-- `SIMPLIFIEDDIRACXNEW/run_original_four_sites_four_traces.py`: launcher for
+- `dirac_greenscore_simulator/run_original_four_sites_four_traces.py`: launcher for
   the complete March--June randomized/GreenScore matrix.
 - `trace_2026_03_01_to_07.csv`: March trace, 727,014 jobs.
 - `trace_2026_04_01_to_07.csv`: April trace, 700,514 jobs.
 - `trace_2026_05_01_to_07.csv`: May trace, 341,275 jobs.
 - `trace_2026_06_01_to_07.csv`: June trace, 997,370 jobs.
 - `trace_2026_06_01_to_03.csv`: shorter three-day trace.
-- `SIMPLIFIEDDIRACXNEW/trace_2026_06_01.csv`: default one-day trace.
+- `dirac_greenscore_simulator/trace_2026_06_01.csv`: default one-day trace.
 
 Generated simulation results are written below
-`SIMPLIFIEDDIRACXNEW/hydric_impact/timeseries/` and are intentionally excluded
+`dirac_greenscore_simulator/hydric_impact/timeseries/` and are intentionally excluded
 from Git.
 
 ## Requirements
@@ -44,14 +44,14 @@ From the repository root:
 ```bash
 python3 -m venv .venv
 .venv/bin/python -m pip install --upgrade pip
-.venv/bin/python -m pip install -r SIMPLIFIEDDIRACXNEW/requirements.txt
+.venv/bin/python -m pip install -r dirac_greenscore_simulator/requirements.txt
 .venv/bin/python -m pip install matplotlib
 ```
 
 Run the unit tests before a long simulation:
 
 ```bash
-cd SIMPLIFIEDDIRACXNEW
+cd dirac_greenscore_simulator
 ../.venv/bin/python -m unittest discover -s tests -v
 cd ..
 ```
@@ -61,7 +61,7 @@ The current suite contains 37 tests.
 ## Authentication
 
 Do not place live credentials in Git. The tracked
-`SIMPLIFIEDDIRACXNEW/cim.conf.example` contains only non-secret settings. The
+`dirac_greenscore_simulator/cim.conf.example` contains only non-secret settings. The
 recommended approach is to provide credentials through environment variables.
 
 Using a token:
@@ -79,11 +79,11 @@ read -rsp "WattNet password: " WATTNET_PASSWORD
 export WATTNET_EMAIL WATTNET_PASSWORD
 ```
 
-A local `SIMPLIFIEDDIRACXNEW/cim.conf` may also be created from the example,
+A local `dirac_greenscore_simulator/cim.conf` may also be created from the example,
 but that file is ignored by Git because it may contain credentials:
 
 ```bash
-cp SIMPLIFIEDDIRACXNEW/cim.conf.example SIMPLIFIEDDIRACXNEW/cim.conf
+cp dirac_greenscore_simulator/cim.conf.example dirac_greenscore_simulator/cim.conf
 ```
 
 ## Reproduce the Four-Trace Simulation Matrix
@@ -107,13 +107,13 @@ The launcher fixes the following settings for all eight runs:
 After exporting WattNet credentials, run from the repository root:
 
 ```bash
-.venv/bin/python SIMPLIFIEDDIRACXNEW/run_original_four_sites_four_traces.py
+.venv/bin/python dirac_greenscore_simulator/run_original_four_sites_four_traces.py
 ```
 
 The expected output directories are:
 
 ```text
-SIMPLIFIEDDIRACXNEW/hydric_impact/timeseries/
+dirac_greenscore_simulator/hydric_impact/timeseries/
 ├── original_four_sites_2026_03_random_seed42/
 ├── original_four_sites_2026_03_greenscore/
 ├── original_four_sites_2026_04_random_seed42/
@@ -130,7 +130,7 @@ workspace is recommended for a clean reproduction. To deliberately rerun into
 existing directories, use:
 
 ```bash
-.venv/bin/python SIMPLIFIEDDIRACXNEW/run_original_four_sites_four_traces.py --allow-existing
+.venv/bin/python dirac_greenscore_simulator/run_original_four_sites_four_traces.py --allow-existing
 ```
 
 This option may replace files but does not clean the directories first.
@@ -142,13 +142,13 @@ not performed by the simulator or the eight-run launcher.
 
 ## Run One Trace Manually
 
-Run commands from `SIMPLIFIEDDIRACXNEW/`. Always choose a new run label unless
+Run commands from `dirac_greenscore_simulator/`. Always choose a new run label unless
 you intentionally want to write into an existing result directory.
 
 ### GreenScore-based scheduling
 
 ```bash
-cd SIMPLIFIEDDIRACXNEW
+cd dirac_greenscore_simulator
 
 SIMULATOR_SITES_FILE=sites_original_four_with_pue.csv \
 SIMULATOR_TRACE_FILE=../trace_2026_06_01_to_07.csv \
@@ -182,7 +182,7 @@ SIMULATOR_RUN_LABEL=june_random_seed42 \
 ## Run Any Compatible Trace
 
 Set `SIMULATOR_TRACE_FILE` to an absolute path or a path relative to
-`SIMPLIFIEDDIRACXNEW/`. A compatible CSV must contain:
+`dirac_greenscore_simulator/`. A compatible CSV must contain:
 
 ```text
 job_id,submit_time,norm_cpu_seconds,cores_used
@@ -190,12 +190,12 @@ job_id,submit_time,norm_cpu_seconds,cores_used
 
 It must also provide either `wallclock`/`wallclocktime` and a CPU normalization
 factor, or `runtime_min`. Supported aliases are documented in
-`SIMPLIFIEDDIRACXNEW/README.md`.
+`dirac_greenscore_simulator/README.md`.
 
 Example with a custom trace and the default site configuration:
 
 ```bash
-cd SIMPLIFIEDDIRACXNEW
+cd dirac_greenscore_simulator
 
 SIMULATOR_TRACE_FILE=/absolute/path/to/custom_trace.csv \
 SIMULATOR_SITES_FILE=sites.csv \
@@ -256,4 +256,5 @@ must equal the number of data rows in the corresponding input trace.
   scheduling policy under common workload and infrastructure inputs.
 
 For simulator internals and all environment variables, see
-`SIMPLIFIEDDIRACXNEW/README.md` and `SIMPLIFIEDDIRACXNEW/DELAY_POLICY.md`.
+`dirac_greenscore_simulator/README.md` and
+`dirac_greenscore_simulator/DELAY_POLICY.md`.

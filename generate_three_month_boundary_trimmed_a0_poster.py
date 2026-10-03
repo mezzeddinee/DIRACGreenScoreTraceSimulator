@@ -14,7 +14,7 @@ import pandas as pd
 
 
 ROOT = Path(__file__).resolve().parent
-SIM = ROOT / "SIMPLIFIEDDIRACXNEW"
+SIM = ROOT / "dirac_greenscore_simulator"
 RUN_ROOT = SIM / "hydric_impact" / "timeseries"
 OUT = ROOT / "overleaf_dirac_three_month_boundary_trimmed_A0_poster_2026-09-03"
 FIGURES = OUT / "figures"

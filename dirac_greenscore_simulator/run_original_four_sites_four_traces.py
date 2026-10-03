@@ -146,7 +146,7 @@ def main() -> None:
 
     print("\nAll eight simulations completed successfully.", flush=True)
     print(
-        "Results are under SIMPLIFIEDDIRACXNEW/hydric_impact/timeseries/.",
+        "Results are under dirac_greenscore_simulator/hydric_impact/timeseries/.",
         flush=True,
     )
 

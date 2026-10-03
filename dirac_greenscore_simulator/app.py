@@ -14,7 +14,7 @@ try:
     from .policy import ReplayCarbonPolicy
     from .report_plots import save_report_plots
     from .simulator import ReplaySimulator
-    from wattnet_ci_provider import WattNetCarbonIntensityProvider
+    from .wattnet_ci_provider import WattNetCarbonIntensityProvider
 except ImportError:  # direct script-style execution fallback
     from ci_provider import MidpointCIProvider
     from csv_io import load_jobs, load_sites

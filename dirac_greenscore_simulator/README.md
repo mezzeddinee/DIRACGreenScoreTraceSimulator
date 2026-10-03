@@ -1,4 +1,4 @@
-# SIMPLIFIEDDIRACXNEW
+# DIRAC GreenScore Trace Simulator
 
 Independent simplified-DIRAC variant for bounded-delay experiments:
 - No pilot objects.
@@ -92,10 +92,10 @@ matrix.
 ## Run
 
 ```bash
-cd /home/mezzeddi/PycharmProjects/testsim/SIMPLIFIEDDIRACXNEW
+cd /path/to/DIRACGreenScoreTraceSimulator
 python3 -m venv .venv
-source .venv/bin/activate
-python3 -m pip install -r requirements.txt
+.venv/bin/python -m pip install -r dirac_greenscore_simulator/requirements.txt
+cd dirac_greenscore_simulator
 # Green mode (score-based ranking) with hydric-impact accounting
 WATTNET_EMAIL=... WATTNET_PASSWORD=... SIMULATOR_GREEN=1 python3 main.py
 # Green mode with a 60-minute gate before spillover beyond the best site

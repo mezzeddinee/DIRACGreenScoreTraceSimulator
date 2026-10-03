@@ -5,7 +5,7 @@ from .hydric_impact_provider import WattNetHydricImpactProvider
 from .models import Job, Site
 from .policy import ReplayCarbonPolicy
 from .simulator import ReplaySimulator
-from wattnet_ci_provider import WattNetCarbonIntensityProvider
+from .wattnet_ci_provider import WattNetCarbonIntensityProvider
 
 __all__ = [
     "Job",
