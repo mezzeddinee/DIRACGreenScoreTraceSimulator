@@ -60,31 +60,15 @@ The current suite contains 37 tests.
 
 ## Authentication
 
-Do not place live credentials in Git. The tracked
-`dirac_greenscore_simulator/cim.conf.example` contains only non-secret settings. The
-recommended approach is to provide credentials through environment variables.
-
-Using a token:
-
-```bash
-read -rsp "WattNet token: " WATTNET_TOKEN
-export WATTNET_TOKEN
-```
-
-Or using email and password:
-
-```bash
-read -rp "WattNet email: " WATTNET_EMAIL
-read -rsp "WattNet password: " WATTNET_PASSWORD
-export WATTNET_EMAIL WATTNET_PASSWORD
-```
-
-A local `dirac_greenscore_simulator/cim.conf` may also be created from the example,
-but that file is ignored by Git because it may contain credentials:
+Create the local configuration file from the tracked example:
 
 ```bash
 cp dirac_greenscore_simulator/cim.conf.example dirac_greenscore_simulator/cim.conf
 ```
+
+Then edit `dirac_greenscore_simulator/cim.conf` and supply the required WattNet
+credentials in its `[WATTNET]` section. The local `cim.conf` is ignored by Git
+and must not be committed. Keep `cim.conf.example` free of live credentials.
 
 ## Reproduce the Four-Trace Simulation Matrix
 
