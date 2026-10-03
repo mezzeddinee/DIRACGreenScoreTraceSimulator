@@ -30,3 +30,7 @@ dist/
 *.tmp
 *.bak
 *~
+
+
+CURRENT_CHAT_CONTEXT_*.md
+AGENTS.md
