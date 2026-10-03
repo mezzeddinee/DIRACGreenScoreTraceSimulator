@@ -235,26 +235,45 @@ carbon, normalized CPU time, water-scarcity impact, and site allocations.
 For a basic completion check, the number of data rows in `completed_jobs.csv`
 must equal the number of data rows in the corresponding input trace.
 
-## Important Accounting Details
+## Plot Environmental Efficiency over Time
 
-- GreenScore scheduling currently uses static `greenhydric` values from the
-  selected site CSV; it does not recompute a time-varying Green Score during
-  scheduling.
-- Historical environmental intervals are reconstructed as job submission time
-  plus historical wall-clock duration because the traces do not contain the
-  original execution-start timestamp.
-- `water_impact_stress_l` is calculated as IT energy times PUE times WattNet
-  water-scarcity intensity. Its unit is AWARE-weighted stress-L, not physical
-  water volume.
-- The raw simulator `carbon_kg` field is calculated as IT energy times carbon
-  intensity and does **not** include PUE. The poster analysis recomputed
-  facility-adjusted carbon as IT energy times PUE times carbon intensity. Use
-  the same post-processing convention when comparing against published poster
-  values.
-- The scientific production comparisons and the controlled trace replays have
-  different evidential meanings. Only the paired trace replays isolate the
-  scheduling policy under common workload and infrastructure inputs.
+The repository includes plotting scripts that derive useful computation per
+unit of environmental impact directly from paired `completed_jobs.csv` files.
+The local, non-cumulative calculation groups jobs by completion hour and uses
+ratios of sums:
 
-For simulator internals and all environment variables, see
-`dirac_greenscore_simulator/README.md` and
-`dirac_greenscore_simulator/DELAY_POLICY.md`.
+```text
+carbon efficiency = sum(norm_cpu_seconds) / sum(carbon_kg)
+water-scarcity efficiency = sum(norm_cpu_seconds) / sum(water_impact_stress_l)
+```
+
+Values are reported as million normalized CPU-seconds per kgCO2e and million
+normalized CPU-seconds per stress-L. Faint points represent independent
+one-hour bins, while the bold curves use centered three-hour ratios.
+
+For example, plot the June GreenScore and randomized runs from the repository
+root with:
+
+```bash
+.venv/bin/python \
+  dirac_greenscore_simulator/hydric_impact/plot_multisite_interval_efficiency_over_time.py \
+  --green dirac_greenscore_simulator/hydric_impact/timeseries/original_four_sites_2026_06_greenscore/completed_jobs.csv \
+  --random dirac_greenscore_simulator/hydric_impact/timeseries/original_four_sites_2026_06_random_seed42/completed_jobs.csv \
+  --output dirac_greenscore_simulator/hydric_impact/timeseries/june_normcpu_efficiency_over_time
+```
+
+The command writes PDF, PNG, and SVG versions of the carbon- and
+water-scarcity-efficiency figure using the supplied output stem.
+
+To plot cumulative efficiency through each job-completion time instead, run:
+
+```bash
+.venv/bin/python \
+  dirac_greenscore_simulator/hydric_impact/plot_multisite_efficiency_over_time.py \
+  --green dirac_greenscore_simulator/hydric_impact/timeseries/original_four_sites_2026_06_greenscore/completed_jobs.csv \
+  --random dirac_greenscore_simulator/hydric_impact/timeseries/original_four_sites_2026_06_random_seed42/completed_jobs.csv \
+  --output dirac_greenscore_simulator/hydric_impact/timeseries/june_cumulative_normcpu_efficiency_over_time
+```
+
+Replace the two input paths with any paired GreenScore and randomized result
+directories containing the same workload.
