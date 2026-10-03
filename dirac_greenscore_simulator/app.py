@@ -177,7 +177,7 @@ def run(base: Path, tick_minutes: int = 1) -> None:
             raise ValueError(
                 "SIMULATOR_RUN_LABEL may contain only letters, numbers, '.', '_' and '-'"
             )
-        report_dir = base / "hydric_impact" / "timeseries" / run_label
+        report_dir = base / "environmental_analysis" / "timeseries" / run_label
     else:
         report_dir = base / "plots"
     save_report_plots(sim, out_dir=report_dir)

@@ -106,7 +106,7 @@ def main() -> None:
         for month, policy_name, _ in planned_runs:
             run_label = f"original_four_sites_2026_{month}_{policy_name}"
             result_dir = (
-                SIMULATOR_DIR / "hydric_impact" / "timeseries" / run_label
+                SIMULATOR_DIR / "environmental_analysis" / "timeseries" / run_label
             )
             if result_dir.exists():
                 existing.append(result_dir)
@@ -146,7 +146,7 @@ def main() -> None:
 
     print("\nAll eight simulations completed successfully.", flush=True)
     print(
-        "Results are under dirac_greenscore_simulator/hydric_impact/timeseries/.",
+        "Results are under dirac_greenscore_simulator/environmental_analysis/timeseries/.",
         flush=True,
     )
 

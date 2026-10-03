@@ -15,6 +15,8 @@ sites are ranked by the static `greenhydric` values in the selected site CSV.
 
 - `dirac_greenscore_simulator/`: simulator source, tests, configuration, and plotting
   utilities.
+- `dirac_greenscore_simulator/environmental_analysis/`: carbon- and
+  water-scarcity-efficiency plotters and poster-generation scripts.
 - `dirac_greenscore_simulator/sites_original_four_with_pue.csv`: controlled four-site
   configuration containing IN2P3-IRES, SARA-MATRIX, FZK-LCG2, and RAL-LCG2.
 - `dirac_greenscore_simulator/run_original_four_sites_four_traces.py`: launcher for
@@ -27,8 +29,8 @@ sites are ranked by the static `greenhydric` values in the selected site CSV.
 - `dirac_greenscore_simulator/trace_2026_06_01.csv`: default one-day trace.
 
 Generated simulation results are written below
-`dirac_greenscore_simulator/hydric_impact/timeseries/` and are intentionally excluded
-from Git.
+`dirac_greenscore_simulator/environmental_analysis/timeseries/` and are
+intentionally excluded from Git.
 
 ## Requirements
 
@@ -97,7 +99,7 @@ After exporting WattNet credentials, run from the repository root:
 The expected output directories are:
 
 ```text
-dirac_greenscore_simulator/hydric_impact/timeseries/
+dirac_greenscore_simulator/environmental_analysis/timeseries/
 ├── original_four_sites_2026_03_random_seed42/
 ├── original_four_sites_2026_03_greenscore/
 ├── original_four_sites_2026_04_random_seed42/
@@ -240,10 +242,10 @@ root with:
 
 ```bash
 .venv/bin/python \
-  dirac_greenscore_simulator/hydric_impact/plot_multisite_interval_efficiency_over_time.py \
-  --green dirac_greenscore_simulator/hydric_impact/timeseries/original_four_sites_2026_06_greenscore/completed_jobs.csv \
-  --random dirac_greenscore_simulator/hydric_impact/timeseries/original_four_sites_2026_06_random_seed42/completed_jobs.csv \
-  --output dirac_greenscore_simulator/hydric_impact/timeseries/june_normcpu_efficiency_over_time
+  dirac_greenscore_simulator/environmental_analysis/plot_multisite_interval_efficiency_over_time.py \
+  --green dirac_greenscore_simulator/environmental_analysis/timeseries/original_four_sites_2026_06_greenscore/completed_jobs.csv \
+  --random dirac_greenscore_simulator/environmental_analysis/timeseries/original_four_sites_2026_06_random_seed42/completed_jobs.csv \
+  --output dirac_greenscore_simulator/environmental_analysis/timeseries/june_normcpu_efficiency_over_time
 ```
 
 The command writes PDF, PNG, and SVG versions of the carbon- and
@@ -253,10 +255,10 @@ To plot cumulative efficiency through each job-completion time instead, run:
 
 ```bash
 .venv/bin/python \
-  dirac_greenscore_simulator/hydric_impact/plot_multisite_efficiency_over_time.py \
-  --green dirac_greenscore_simulator/hydric_impact/timeseries/original_four_sites_2026_06_greenscore/completed_jobs.csv \
-  --random dirac_greenscore_simulator/hydric_impact/timeseries/original_four_sites_2026_06_random_seed42/completed_jobs.csv \
-  --output dirac_greenscore_simulator/hydric_impact/timeseries/june_cumulative_normcpu_efficiency_over_time
+  dirac_greenscore_simulator/environmental_analysis/plot_multisite_efficiency_over_time.py \
+  --green dirac_greenscore_simulator/environmental_analysis/timeseries/original_four_sites_2026_06_greenscore/completed_jobs.csv \
+  --random dirac_greenscore_simulator/environmental_analysis/timeseries/original_four_sites_2026_06_random_seed42/completed_jobs.csv \
+  --output dirac_greenscore_simulator/environmental_analysis/timeseries/june_cumulative_normcpu_efficiency_over_time
 ```
 
 Replace the two input paths with any paired GreenScore and randomized result

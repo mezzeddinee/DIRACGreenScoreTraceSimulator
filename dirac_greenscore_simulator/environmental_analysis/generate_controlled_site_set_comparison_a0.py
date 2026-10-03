@@ -16,9 +16,9 @@ import numpy as np
 import pandas as pd
 
 
-ROOT = Path(__file__).resolve().parent
+ROOT = Path(__file__).resolve().parents[2]
 SIM = ROOT / "dirac_greenscore_simulator"
-RUN_ROOT = SIM / "hydric_impact" / "timeseries"
+RUN_ROOT = SIM / "environmental_analysis" / "timeseries"
 OUT = ROOT / "overleaf_dirac_controlled_site_set_comparison_A0_2026-09-05"
 FIG = OUT / "figures"
 DATA = OUT / "data"
