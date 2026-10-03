@@ -1,0 +1,35 @@
+# Local Python environments and caches
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+htmlcov/
+
+# IDE and operating-system files
+.idea/
+.vscode/
+.DS_Store
+
+# Credentials and local configuration
+.env
+.env.*
+!.env.example
+SIMPLIFIEDDIRACXNEW/cim.conf
+
+# Large input traces (store externally or add later with Git LFS)
+trace_*.csv
+
+# Generated simulator outputs
+SIMPLIFIEDDIRACXNEW/plots/
+SIMPLIFIEDDIRACXNEW/hydric_impact/timeseries/
+*.log
+
+# Packaging and temporary files
+build/
+dist/
+*.egg-info/
+*.tmp
+*.bak
+*~
